@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">ctf_app</string>
+    <string name="app_name">CTF</string>
+    <string name="team_red">Red Team</string>
+    <string name="team_blue">Blue Team</string>
 </resources>
