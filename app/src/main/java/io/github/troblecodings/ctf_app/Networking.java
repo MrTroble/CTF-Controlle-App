@@ -1,67 +1,66 @@
 package io.github.troblecodings.ctf_app;
 
-import android.os.AsyncTask;
-
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.logging.Level;
 
-import javax.net.ssl.SSLSocket;
-import javax.net.ssl.SSLSocketFactory;
+import java.net.Socket;
 
-public class Networking extends AsyncTask<String, Void, Void> {
+public class Networking extends Thread {
 
-    private SSLSocket socket;
+    private Socket socket;
     private PrintWriter writer;
     private Scanner scanner;
-    private ArrayList<String> msg_queue = new ArrayList<>();
+    private volatile ArrayList<String> msg_queue = new ArrayList<>();
+    private volatile boolean close_request = false;
+    private String local_ip;
 
-    @Override
-    protected Void doInBackground(String... local_ip) {
-        try {
-            startNetworking(local_ip[0]);
-        } catch (Exception e) {
-            MainActivity.LOGGER.log(Level.WARNING,"Networking error!");
-            e.printStackTrace();
-        }
-        return null;
+    public Networking(String local_ip) {
+        this.local_ip = local_ip;
     }
 
     @Override
-    protected void onProgressUpdate(Void... values) {
-        super.onProgressUpdate(values);
+    public void run() {
+        try {
+            startNetworking(local_ip);
+        } catch (Exception e) {
+            MainActivity.LOGGER.info("Networking error!");
+            MainActivity.LOGGER.info(e.toString());
+            e.printStackTrace();
+        }
     }
 
     private void startNetworking(String local_ip) throws Exception{
-        this.socket = (SSLSocket) SSLSocketFactory.getDefault().createSocket(local_ip, 555);
-        this.writer = new PrintWriter(this.socket.getOutputStream());
+        MainActivity.LOGGER.info("Start networking");
+        this.socket = new Socket(local_ip, 555);
+        MainActivity.LOGGER.info("Initialized networking");
+        this.writer = new PrintWriter( this.socket.getOutputStream(), true);
         this.scanner = new Scanner(this.socket.getInputStream());
+        MainActivity.LOGGER.info("Initialized networking");
+        MainActivity.LOGGER.info("Start message queue");
         while (true){
-            if(msg_queue.size() > 0) {
-                for (String msg : msg_queue) {
-                    this.writer.println(msg);
-                    MainActivity.LOGGER.info("Message: " + msg);
-                    if (this.scanner.hasNextLine()) {
-                        String rsp = this.scanner.nextLine();
-                        MainActivity.LOGGER.info("Response: " + rsp);
-                    }
+            if (msg_queue.size() > 0) {
+                String[] cpy = msg_queue.toArray(new String[msg_queue.size()]);
+                for(String str : cpy){
+                    MainActivity.LOGGER.info("Trying to send message: " + str);
+                    this.writer.println(str);
+                    this.msg_queue.remove(str);
                 }
             }
+            if(close_request){
+                break;
+            }
         }
+        this.socket.close();
     }
 
     public void sendData(String str){
-        msg_queue.add(str);
+        MainActivity.LOGGER.info("Queuing message: " + str);
+        this.msg_queue.add(str);
     }
 
     public void close() {
-        try {
-            this.socket.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        this.close_request = true;
     }
 
 }

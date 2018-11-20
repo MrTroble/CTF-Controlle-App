@@ -19,10 +19,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LOGGER = Logger.getLogger("io.github.troblecodings.ctf_app");
+        LOGGER = Logger.getLogger("CTF");
         setContentView(R.layout.activity_main);
-        this.networking = new Networking();
-        this.networking.execute("10.0.2.2");
+        this.networking = new Networking("10.0.2.2");
+        this.networking.start();
 
         // This is looking bad but there is probably no better way
         findViewById(R.id.blue_team_player_1).setOnClickListener(this);
@@ -48,5 +48,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.red_team_player_3: this.networking.sendData("red:3"); break;
             case R.id.red_team_player_4: this.networking.sendData("red:4"); break;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        this.networking.close();
+        super.onDestroy();
     }
 }
