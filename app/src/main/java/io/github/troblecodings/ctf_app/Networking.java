@@ -38,6 +38,8 @@ public class Networking extends Thread {
         this.scanner = new Scanner(this.socket.getInputStream());
         MainActivity.LOGGER.info("Initialized networking");
         MainActivity.LOGGER.info("Start message queue");
+        Reader reader = new Reader(this.writer, this.scanner);
+        reader.start();
         while (true){
             if (msg_queue.size() > 0) {
                 String[] cpy = msg_queue.toArray(new String[msg_queue.size()]);
@@ -61,6 +63,34 @@ public class Networking extends Thread {
 
     public void close() {
         this.close_request = true;
+    }
+
+    private class Reader extends Thread{
+
+        private PrintWriter writer;
+        private Scanner scanner;
+
+        public Reader(PrintWriter writer, Scanner scanner) {
+            this.writer = writer;
+            this.scanner = scanner;
+        }
+
+        @Override
+        public void run() {
+            MainActivity.LOGGER.info("Start server command listener!");
+            while(scanner.hasNextLine()){
+                String input = scanner.nextLine();
+                MainActivity.LOGGER.info(socket + " send data " + input);
+                String command = input.split(" ")[0];
+                String arg = input.replaceFirst(command + " ", "");
+                processData(command, arg.split(":"));
+            }
+            MainActivity.LOGGER.info("No further input! Networking error?");
+        }
+
+        private void processData(String command, String[] args) {
+
+        }
     }
 
 }
