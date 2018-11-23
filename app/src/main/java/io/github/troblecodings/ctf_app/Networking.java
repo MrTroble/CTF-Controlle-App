@@ -1,5 +1,7 @@
 package io.github.troblecodings.ctf_app;
 
+import android.view.View;
+
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -88,8 +90,44 @@ public class Networking extends Thread {
             MainActivity.LOGGER.info("No further input! Networking error?");
         }
 
-        private void processData(String command, String[] args) {
+        private void processData(String command, final String[] args) {
+            if(command.equals("lock")){
+                MainActivity.INSTANCE.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        get(args).setEnabled(false);
+                    }
+                });
+            }
+            else if(command.equals("unlock")) {
+                MainActivity.INSTANCE.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        get(args).setEnabled(true);
+                    }
+                });
+            } else if(command.equals("set_name")) {
 
+            }
+        }
+
+        private View get(String[] str){
+            if(str[0].equals("red")){
+                switch (Integer.valueOf(str[1])){
+                    case 1: return MainActivity.INSTANCE.findViewById(R.id.red_team_player_1);
+                    case 2: return MainActivity.INSTANCE.findViewById(R.id.red_team_player_2);
+                    case 3: return MainActivity.INSTANCE.findViewById(R.id.red_team_player_3);
+                    case 4: return MainActivity.INSTANCE.findViewById(R.id.red_team_player_4);
+                }
+            } else {
+                switch (Integer.valueOf(str[1])){
+                    case 1: return MainActivity.INSTANCE.findViewById(R.id.blue_team_player_1);
+                    case 2: return MainActivity.INSTANCE.findViewById(R.id.blue_team_player_2);
+                    case 3: return MainActivity.INSTANCE.findViewById(R.id.blue_team_player_3);
+                    case 4: return MainActivity.INSTANCE.findViewById(R.id.blue_team_player_4);
+                }
+            }
+            return null;
         }
     }
 

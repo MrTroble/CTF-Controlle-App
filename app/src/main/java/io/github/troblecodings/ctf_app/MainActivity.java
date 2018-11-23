@@ -13,13 +13,15 @@ import javax.net.ssl.HttpsURLConnection;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     public static Logger LOGGER;
+    public static MainActivity  INSTANCE;
 
     private Networking networking;
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         LOGGER = Logger.getLogger("CTF");
+        INSTANCE = this;
         setContentView(R.layout.activity_main);
         this.networking = new Networking("10.0.2.2");
         this.networking.start();
