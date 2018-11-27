@@ -1,6 +1,7 @@
 package io.github.troblecodings.ctf_app;
 
 import android.view.View;
+import android.widget.TextView;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -107,11 +108,16 @@ public class Networking extends Thread {
                     }
                 });
             } else if(command.equals("set_name")) {
-
+                MainActivity.INSTANCE.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        get(args).setText(args[2]);
+                    }
+                });
             }
         }
 
-        private View get(String[] str){
+        private TextView get(String[] str){
             if(str[0].equals("red")){
                 switch (Integer.valueOf(str[1])){
                     case 1: return MainActivity.INSTANCE.findViewById(R.id.red_team_player_1);
