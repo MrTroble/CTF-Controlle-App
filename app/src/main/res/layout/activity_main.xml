@@ -8,105 +8,103 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:baselineAligned="false">
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/team_red"
-                    android:textAppearance="@android:style/TextAppearance.Holo.Widget"
-                    android:textColor="@color/color_team_red"
-                    android:textSize="30sp"
-                    android:typeface="normal" />
-
-                <Button
-                    android:id="@+id/red_team_player_1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/color_team_red"
-                    android:text="red_team_player_1" />
-
-                <Button
-                    android:id="@+id/red_team_player_2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/color_team_red"
-                    android:text="red_team_player_2" />
-
-                <Button
-                    android:id="@+id/red_team_player_3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/color_team_red"
-                    android:text="red_team_player_3" />
-
-                <Button
-                    android:id="@+id/red_team_player_4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/color_team_red"
-                    android:text="red_team_player_4" />
-            </LinearLayout>
-
-            <LinearLayout
+            <TextView
+                android:id="@+id/textView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:orientation="vertical">
+                android:text="@string/team_blue"
+                android:textAppearance="@android:style/TextAppearance.Holo.Widget"
+                android:textColor="@color/color_team_blue"
+                android:textSize="30sp"
+                android:typeface="normal"
+                app:fontFamily="monospace" />
 
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/team_blue"
-                    android:textAppearance="@android:style/TextAppearance.Holo.Widget"
-                    android:textColor="@color/color_team_blue"
-                    android:textSize="30sp"
-                    android:typeface="normal"
-                    app:fontFamily="monospace" />
+            <Button
+                android:id="@+id/blue_team_player_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_team_blue"
+                android:onClick="onClick"
+                android:text="blue_team_player_1"
+                android:textSize="@dimen/Base_font_size" />
 
-                <Button
-                    android:id="@+id/blue_team_player_1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/color_team_blue"
-                    android:onClick="onClick"
-                    android:text="blue_team_player_1" />
+            <Button
+                android:id="@+id/blue_team_player_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_team_blue"
+                android:text="blue_team_player_3"
+                android:textSize="@dimen/Base_font_size" />
 
-                <Button
-                    android:id="@+id/blue_team_player_2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/color_team_blue"
-                    android:text="blue_team_player_2" />
+            <Button
+                android:id="@+id/blue_team_player_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_team_blue"
+                android:text="blue_team_player_2"
+                android:textSize="@dimen/Base_font_size" />
 
-                <Button
-                    android:id="@+id/blue_team_player_3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/color_team_blue"
-                    android:text="blue_team_player_3" />
+            <Button
+                android:id="@+id/blue_team_player_4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_team_blue"
+                android:text="blue_team_player_4"
+                android:textSize="@dimen/Base_font_size" />
 
-                <Button
-                    android:id="@+id/blue_team_player_4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/color_team_blue"
-                    android:text="blue_team_player_4" />
-            </LinearLayout>
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/team_red"
+                android:textAppearance="@android:style/TextAppearance.Holo.Widget"
+                android:textColor="@color/color_team_red"
+                android:textSize="30sp"
+                android:typeface="normal" />
+
+            <Button
+                android:id="@+id/red_team_player_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_team_red"
+                android:text="red_team_player_1"
+                android:textSize="@dimen/Base_font_size" />
+
+            <Button
+                android:id="@+id/red_team_player_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_team_red"
+                android:text="red_team_player_2"
+                android:textSize="@dimen/Base_font_size" />
+
+            <Button
+                android:id="@+id/red_team_player_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_team_red"
+                android:text="red_team_player_3"
+                android:textSize="@dimen/Base_font_size" />
+
+            <Button
+                android:id="@+id/red_team_player_4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_team_red"
+                android:text="red_team_player_4"
+                android:textSize="@dimen/Base_font_size" />
         </LinearLayout>
     </ScrollView>
 
