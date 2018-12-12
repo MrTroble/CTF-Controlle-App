@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static Logger LOGGER;
     public static MainActivity  INSTANCE;
 
-    private Networking networking;
+    public static Networking networking;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,8 +23,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         LOGGER = Logger.getLogger("CTF");
         INSTANCE = this;
         setContentView(R.layout.activity_main);
-        this.networking = new Networking("10.0.2.2");
-        this.networking.start();
+
+        StartDialog dialog = new StartDialog();
+        dialog.show(getSupportFragmentManager(), "start");
 
         // This is looking bad but there is probably no better way
         findViewById(R.id.blue_team_player_1).setOnClickListener(this);
@@ -41,20 +42,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         // This is looking bad but there is probably no better way
         switch (v.getId()){
-            case R.id.blue_team_player_1: this.networking.sendData("disable blue:1"); break;
-            case R.id.blue_team_player_2: this.networking.sendData("disable blue:2"); break;
-            case R.id.blue_team_player_3: this.networking.sendData("disable blue:3"); break;
-            case R.id.blue_team_player_4: this.networking.sendData("disable blue:4"); break;
-            case R.id.red_team_player_1: this.networking.sendData("disable red:1"); break;
-            case R.id.red_team_player_2: this.networking.sendData("disable red:2"); break;
-            case R.id.red_team_player_3: this.networking.sendData("disable red:3"); break;
-            case R.id.red_team_player_4: this.networking.sendData("disable red:4"); break;
+            case R.id.blue_team_player_1: networking.sendData("disable blue:1"); break;
+            case R.id.blue_team_player_2: networking.sendData("disable blue:2"); break;
+            case R.id.blue_team_player_3: networking.sendData("disable blue:3"); break;
+            case R.id.blue_team_player_4: networking.sendData("disable blue:4"); break;
+            case R.id.red_team_player_1: networking.sendData("disable red:1"); break;
+            case R.id.red_team_player_2: networking.sendData("disable red:2"); break;
+            case R.id.red_team_player_3: networking.sendData("disable red:3"); break;
+            case R.id.red_team_player_4: networking.sendData("disable red:4"); break;
         }
     }
 
     @Override
     protected void onDestroy() {
-        this.networking.close();
+        networking.close();
         super.onDestroy();
     }
 }

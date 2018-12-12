@@ -2,4 +2,8 @@
     <string name="app_name">CTF</string>
     <string name="team_red">Red Team</string>
     <string name="team_blue">Blue Team</string>
+    <string name="port">Port</string>
+    <string name="pw">Password</string>
+    <string name="apply">Apply</string>
+    <string name="ip">Server adress</string>
 </resources>

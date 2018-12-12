@@ -16,16 +16,19 @@ public class Networking extends Thread {
     private Scanner scanner;
     private volatile ArrayList<String> msg_queue = new ArrayList<>();
     private volatile boolean close_request = false;
-    private String local_ip;
+    private String local_ip, pw;
+    private int port;
 
-    public Networking(String local_ip) {
+    public Networking(String local_ip, int port, String pw) {
         this.local_ip = local_ip;
+        this.port = port;
+        this.pw = pw;
     }
 
     @Override
     public void run() {
         try {
-            startNetworking(local_ip);
+            startNetworking();
         } catch (Exception e) {
             MainActivity.LOGGER.info("Networking error!");
             MainActivity.LOGGER.info(e.toString());
@@ -33,14 +36,15 @@ public class Networking extends Thread {
         }
     }
 
-    private void startNetworking(String local_ip) throws Exception{
-        MainActivity.LOGGER.info("Start networking");
-        this.socket = new Socket(local_ip, 555);
+    private void startNetworking() throws Exception{
+        MainActivity.LOGGER.info("Start networking on");
+        this.socket = new Socket(this.local_ip, this.port);
         MainActivity.LOGGER.info("Initialized networking");
         this.writer = new PrintWriter( this.socket.getOutputStream(), true);
         this.scanner = new Scanner(this.socket.getInputStream());
         MainActivity.LOGGER.info("Initialized networking");
         MainActivity.LOGGER.info("Start message queue");
+        this.writer.println(this.pw);
         Reader reader = new Reader(this.writer, this.scanner);
         reader.start();
         while (true){
