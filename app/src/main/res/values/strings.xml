@@ -6,4 +6,8 @@
     <string name="pw">Password</string>
     <string name="apply">Apply</string>
     <string name="ip">Server adress</string>
+    <string name="matchid">Match ID</string>
+    <string name="blue_win">Blue Team wins!</string>
+    <string name="matchend">End match</string>
+    <string name="red_win">Red Team wins!</string>
 </resources>

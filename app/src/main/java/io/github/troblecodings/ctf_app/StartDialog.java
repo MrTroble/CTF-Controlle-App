@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
-import android.text.Layout;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -28,7 +27,8 @@ public class StartDialog extends DialogFragment {
             public void onClick(View v) {
                 MainActivity.networking = new Networking(((TextView)view.findViewById(R.id.ip)).getText().toString(),
                         Integer.valueOf(((TextView)view.findViewById(R.id.port_input)).getText().toString()),
-                        ((TextView)view.findViewById(R.id.pw_input)).getText().toString());
+                        ((TextView)view.findViewById(R.id.pw_input)).getText().toString(),
+                        Integer.valueOf(((TextView)view.findViewById(R.id.matchid)).getText().toString()));
                 MainActivity.networking.start();
                 StartDialog.this.dismiss();
             }

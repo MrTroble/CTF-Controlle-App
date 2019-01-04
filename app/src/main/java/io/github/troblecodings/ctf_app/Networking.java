@@ -1,5 +1,7 @@
 package io.github.troblecodings.ctf_app;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.view.View;
 import android.widget.TextView;
 
@@ -16,13 +18,14 @@ public class Networking extends Thread {
     private Scanner scanner;
     private volatile ArrayList<String> msg_queue = new ArrayList<>();
     private volatile boolean close_request = false;
-    private String local_ip, pw;
-    private int port;
+    private final String local_ip, pw;
+    private final int port, matchid;
 
-    public Networking(String local_ip, int port, String pw) {
+    public Networking(String local_ip, int port, String pw,int matchid) {
         this.local_ip = local_ip;
         this.port = port;
         this.pw = pw;
+        this.matchid = matchid;
     }
 
     @Override
@@ -65,7 +68,7 @@ public class Networking extends Thread {
 
     public void sendData(String str){
         MainActivity.LOGGER.info("Queuing message: " + str);
-        this.msg_queue.add(str);
+        this.msg_queue.add(str + ":" + matchid);
     }
 
     public void close() {
@@ -76,6 +79,7 @@ public class Networking extends Thread {
 
         private PrintWriter writer;
         private Scanner scanner;
+        private boolean active = false;
 
         public Reader(PrintWriter writer, Scanner scanner) {
             this.writer = writer;
@@ -96,6 +100,7 @@ public class Networking extends Thread {
         }
 
         private void processData(String command, final String[] args) {
+            if(Integer.valueOf(args[args.length - 1]) != matchid)return;
             if(command.equals("lock")){
                 MainActivity.INSTANCE.runOnUiThread(new Runnable() {
                     @Override
@@ -104,7 +109,7 @@ public class Networking extends Thread {
                     }
                 });
             }
-            else if(command.equals("unlock")) {
+            else if(command.equals("unlock") && active) {
                 MainActivity.INSTANCE.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -118,6 +123,43 @@ public class Networking extends Thread {
                         get(args).setText(args[2]);
                     }
                 });
+            } else if(command.equals("match_start")){
+                MainActivity.INSTANCE.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        for(View view : MainActivity.INSTANCE.getAll()){
+                            view.setEnabled(true);
+                        }
+                    }
+                });
+                active = true;
+            } else if(command.equals("match_end")) {
+                active = false;
+                MainActivity.INSTANCE.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        for(View view : MainActivity.INSTANCE.getAll()){
+                            view.setEnabled(false);
+                        }
+                        if(args[0].equals("time")){
+                            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.INSTANCE);
+                            builder.setMessage("Match has ended! Time has run out!");
+                            builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {@Override public void onClick(DialogInterface dialog, int which) { }});
+                            builder.create().show();
+                        }
+                        if(args[0].equals("blue_win")){
+                            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.INSTANCE);
+                            builder.setMessage("Match has ended! Blue team won!");
+                            builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {@Override public void onClick(DialogInterface dialog, int which) { }});
+                            builder.create().show();
+                        }
+                        if(args[0].equals("red_win")){
+                            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.INSTANCE);
+                            builder.setMessage("Match has ended! Red team won!");
+                            builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {@Override public void onClick(DialogInterface dialog, int which) { }});
+                            builder.create().show();
+                        }
+                    }});
             }
         }
 
