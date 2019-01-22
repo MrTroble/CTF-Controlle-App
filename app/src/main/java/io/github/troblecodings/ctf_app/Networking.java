@@ -73,6 +73,7 @@ public class Networking extends Thread {
 
     public void close() {
         this.close_request = true;
+        this.stop();
     }
 
     private class Reader extends Thread{
@@ -97,6 +98,17 @@ public class Networking extends Thread {
                 processData(command, arg.split(":"));
             }
             MainActivity.LOGGER.info("No further input! Networking error?");
+            MainActivity.INSTANCE.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.INSTANCE);
+                    builder.setMessage("No further input! \n This seams to be an error! \n Please report back to admin!");
+                    builder.setNeutralButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                        }});
+                }
+            });
         }
 
         private void processData(String command, final String[] args) {
@@ -160,6 +172,24 @@ public class Networking extends Thread {
                             builder.create().show();
                         }
                     }});
+            } else if(command.equals("match_pause")) {
+                MainActivity.INSTANCE.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        for(View v : MainActivity.INSTANCE.getAll()){
+                            v.setEnabled(false);
+                        }
+                    }
+                });
+            } else if(command.equals("match_unpause")) {
+                MainActivity.INSTANCE.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        for(View v : MainActivity.INSTANCE.getAll()){
+                            v.setEnabled(true);
+                        }
+                    }
+                });
             }
         }
 
