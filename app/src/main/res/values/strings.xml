@@ -10,4 +10,5 @@
     <string name="blue_win">Blue Team wins!</string>
     <string name="matchend">End match</string>
     <string name="red_win">Red Team wins!</string>
+    <string name="foul">Strike</string>
 </resources>

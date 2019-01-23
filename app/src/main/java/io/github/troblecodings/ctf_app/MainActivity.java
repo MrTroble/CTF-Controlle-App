@@ -3,6 +3,7 @@ package io.github.troblecodings.ctf_app;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +25,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         StartDialog dialog = new StartDialog();
         dialog.show(getSupportFragmentManager(), "start");
-
-
 
         for(View view : getAll()){
             view.setEnabled(false);
@@ -68,14 +67,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void foul(int id){
         switch (id){
-            case R.id.blue_team_player_1_foul: networking.sendData("foul blue:1"); break;
-            case R.id.blue_team_player_2_foul: networking.sendData("foul blue:2"); break;
-            case R.id.blue_team_player_3_foul: networking.sendData("foul blue:3"); break;
-            case R.id.blue_team_player_4_foul: networking.sendData("foul blue:4"); break;
-            case R.id.red_team_player_1_foul: networking.sendData("foul red:1"); break;
-            case R.id.red_team_player_2_foul: networking.sendData("foul red:2"); break;
-            case R.id.red_team_player_3_foul: networking.sendData("foul red:3"); break;
-            case R.id.red_team_player_4_foul: networking.sendData("foul red:4"); break;
+            case R.id.blue_team_player_1_foul: networking.sendData("foul blue:1:" + ((TextView)findViewById(R.id.blue_team_player_1)).getText()); break;
+            case R.id.blue_team_player_2_foul: networking.sendData("foul blue:2:" + ((TextView)findViewById(R.id.blue_team_player_2)).getText()); break;
+            case R.id.blue_team_player_3_foul: networking.sendData("foul blue:3:" + ((TextView)findViewById(R.id.blue_team_player_3)).getText()); break;
+            case R.id.blue_team_player_4_foul: networking.sendData("foul blue:4:" + ((TextView)findViewById(R.id.blue_team_player_4)).getText()); break;
+            case R.id.red_team_player_1_foul: networking.sendData("foul red:1:" + ((TextView)findViewById(R.id.red_team_player_1)).getText()); break;
+            case R.id.red_team_player_2_foul: networking.sendData("foul red:2:" + ((TextView)findViewById(R.id.red_team_player_2)).getText()); break;
+            case R.id.red_team_player_3_foul: networking.sendData("foul red:3:" + ((TextView)findViewById(R.id.red_team_player_3)).getText()); break;
+            case R.id.red_team_player_4_foul: networking.sendData("foul red:4:" + ((TextView)findViewById(R.id.red_team_player_4)).getText()); break;
         }
     }
 

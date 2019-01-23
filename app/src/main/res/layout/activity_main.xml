@@ -23,6 +23,16 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
+            <Button
+                android:id="@+id/pause"
+                android:layout_width="match_parent"
+                android:layout_height="79dp"
+                android:layout_weight="1"
+                android:background="@color/gray"
+                android:onClick="onClick"
+                android:text="Pause"
+                android:textSize="@dimen/Base_font_size" />
+
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="match_parent"
@@ -34,38 +44,108 @@
                 android:typeface="normal"
                 app:fontFamily="monospace" />
 
-            <Button
-                android:id="@+id/blue_team_player_1"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/color_team_blue"
-                android:onClick="onClick"
-                android:text="blue_team_player_1"
-                android:textSize="@dimen/Base_font_size" />
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/blue_team_player_2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/color_team_blue"
-                android:text="blue_team_player_2"
-                android:textSize="@dimen/Base_font_size" />
+                <Button
+                    android:id="@+id/blue_team_player_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/color_team_blue"
+                    android:onClick="onClick"
+                    android:text="blue_team_player_1"
+                    android:textSize="@dimen/Base_font_size" />
 
-            <Button
-                android:id="@+id/blue_team_player_3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/color_team_blue"
-                android:text="blue_team_player_3"
-                android:textSize="@dimen/Base_font_size" />
+                <Button
+                    android:id="@+id/blue_team_player_1_foul"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:background="@color/gray"
+                    android:onClick="onClick"
+                    android:text="@string/foul"
+                    android:textSize="24sp" />
 
-            <Button
-                android:id="@+id/blue_team_player_4"
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/color_team_blue"
-                android:text="blue_team_player_4"
-                android:textSize="@dimen/Base_font_size" />
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/blue_team_player_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/color_team_blue"
+                    android:text="blue_team_player_2"
+                    android:textSize="@dimen/Base_font_size" />
+
+                <Button
+                    android:id="@+id/blue_team_player_2_foul"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:background="@color/gray"
+                    android:onClick="onClick"
+                    android:text="@string/foul"
+                    android:textSize="24sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/blue_team_player_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/color_team_blue"
+                    android:text="blue_team_player_3"
+                    android:textSize="@dimen/Base_font_size" />
+
+                <Button
+                    android:id="@+id/blue_team_player_3_foul"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:background="@color/gray"
+                    android:onClick="onClick"
+                    android:text="@string/foul"
+                    android:textSize="24sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/blue_team_player_4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/color_team_blue"
+                    android:text="blue_team_player_4"
+                    android:textSize="@dimen/Base_font_size" />
+
+                <Button
+                    android:id="@+id/blue_team_player_4_foul"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:background="@color/gray"
+                    android:onClick="onClick"
+                    android:text="@string/foul"
+                    android:textSize="24sp" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/textView"
@@ -77,37 +157,109 @@
                 android:textSize="30sp"
                 android:typeface="normal" />
 
-            <Button
-                android:id="@+id/red_team_player_1"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/color_team_red"
-                android:text="red_team_player_1"
-                android:textSize="@dimen/Base_font_size" />
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/red_team_player_2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/color_team_red"
-                android:text="red_team_player_2"
-                android:textSize="@dimen/Base_font_size" />
+                <Button
+                    android:id="@+id/red_team_player_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/color_team_red"
+                    android:text="red_team_player_1"
+                    android:textSize="@dimen/Base_font_size" />
 
-            <Button
-                android:id="@+id/red_team_player_3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/color_team_red"
-                android:text="red_team_player_3"
-                android:textSize="@dimen/Base_font_size" />
+                <Button
+                    android:id="@+id/red_team_player_1_foul"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:background="@color/gray"
+                    android:onClick="onClick"
+                    android:text="@string/foul"
+                    android:textSize="24sp" />
+            </LinearLayout>
 
-            <Button
-                android:id="@+id/red_team_player_4"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="58dp"
-                android:background="@color/color_team_red"
-                android:text="red_team_player_4"
-                android:textSize="@dimen/Base_font_size" />
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/red_team_player_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/color_team_red"
+                    android:text="red_team_player_2"
+                    android:textSize="@dimen/Base_font_size" />
+
+                <Button
+                    android:id="@+id/red_team_player_2_foul"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:background="@color/gray"
+                    android:onClick="onClick"
+                    android:text="@string/foul"
+                    android:textSize="24sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/red_team_player_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/color_team_red"
+                    android:text="red_team_player_3"
+                    android:textSize="@dimen/Base_font_size" />
+
+                <Button
+                    android:id="@+id/red_team_player_3_foul"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:background="@color/gray"
+                    android:onClick="onClick"
+                    android:text="@string/foul"
+                    android:textSize="24sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/red_team_player_4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/color_team_red"
+                    android:text="red_team_player_4"
+                    android:textSize="@dimen/Base_font_size" />
+
+                <Button
+                    android:id="@+id/red_team_player_4_foul"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:background="@color/gray"
+                    android:onClick="onClick"
+                    android:text="@string/foul"
+                    android:textSize="24sp" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/matchend"

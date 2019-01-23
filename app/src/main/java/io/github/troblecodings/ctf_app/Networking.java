@@ -112,6 +112,24 @@ public class Networking extends Thread {
         }
 
         private void processData(String command, final String[] args) {
+            if(command.equals("motd")) {
+                MainActivity.INSTANCE.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.INSTANCE);
+                        builder.setMessage(args[0].replace("%n", "\n"));
+                        builder.setTitle("MOTD");
+                        builder.setNeutralButton("Ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+                        builder.show();
+                    }
+                });
+                return;
+            }
             if(Integer.valueOf(args[args.length - 1]) != matchid)return;
             if(command.equals("lock")){
                 MainActivity.INSTANCE.runOnUiThread(new Runnable() {
@@ -188,6 +206,14 @@ public class Networking extends Thread {
                         for(View v : MainActivity.INSTANCE.getAll()){
                             v.setEnabled(true);
                         }
+                    }
+                });
+            } else if(command.equals("ban")) {
+                MainActivity.INSTANCE.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        get(args).setText("BANNED");
+                        get(args).setEnabled(false);
                     }
                 });
             }
