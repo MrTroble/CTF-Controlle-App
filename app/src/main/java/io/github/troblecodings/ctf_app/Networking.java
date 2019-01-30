@@ -201,7 +201,7 @@ public class Networking extends Thread {
                             v.setEnabled(false);
                         }
                         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.INSTANCE);
-                        builder.setMessage("The match has been paused!\n Report to admin!");
+                        builder.setMessage("The match has been paused!\nReport to admin!");
                         builder.setNeutralButton("Ok", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
