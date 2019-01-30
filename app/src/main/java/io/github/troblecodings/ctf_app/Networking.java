@@ -92,6 +92,7 @@ public class Networking extends Thread {
             MainActivity.LOGGER.info("Start server command listener!");
             while(scanner.hasNextLine()){
                 String input = scanner.nextLine();
+                if(input.isEmpty())continue;
                 MainActivity.LOGGER.info(socket + " send data " + input);
                 String command = input.split(" ")[0];
                 String arg = input.replaceFirst(command + " ", "");
@@ -102,11 +103,12 @@ public class Networking extends Thread {
                 @Override
                 public void run() {
                     AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.INSTANCE);
-                    builder.setMessage("No further input! \n This seams to be an error! \n Please report back to admin!");
+                    builder.setMessage("No further input! \n This seams to be an error! \n Please report back to an admin!");
                     builder.setNeutralButton("Ok", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                         }});
+                    builder.show();
                 }
             });
         }
@@ -158,6 +160,7 @@ public class Networking extends Thread {
                     @Override
                     public void run() {
                         for(View view : MainActivity.INSTANCE.getAll()){
+                            if(view instanceof TextView && ((TextView) view).getText().equals("BANNED")) continue;
                             view.setEnabled(true);
                         }
                     }
@@ -204,6 +207,7 @@ public class Networking extends Thread {
                     @Override
                     public void run() {
                         for(View v : MainActivity.INSTANCE.getAll()){
+                            if(v instanceof TextView && ((TextView) v).getText().equals("BANNED")) continue;
                             v.setEnabled(true);
                         }
                     }
