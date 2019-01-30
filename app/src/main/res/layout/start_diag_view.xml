@@ -61,6 +61,13 @@
             android:text="@string/apply"
             tools:text="@string/apply" />
 
+        <Button
+            android:id="@+id/scan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="Scan" />
+
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

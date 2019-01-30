@@ -1,9 +1,14 @@
 package io.github.troblecodings.ctf_app;
 
+import android.content.Intent;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +19,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static Logger LOGGER;
     public static MainActivity  INSTANCE;
 
+    public static StartDialog dialog;
     public static Networking networking;
 
     @Override
@@ -23,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         INSTANCE = this;
         setContentView(R.layout.activity_main);
 
-        StartDialog dialog = new StartDialog();
+        dialog = new StartDialog();
         dialog.show(getSupportFragmentManager(), "start");
 
         for(View view : getAll()){
@@ -49,6 +55,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.pause: networking.sendData("match_pause "); break;
             default:
                 foul(v.getId());
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        IntentResult res = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if(res != null && res.getContents() != null){
+            Fragment frag = getSupportFragmentManager().findFragmentByTag("start");
+            if (frag == null) frag = getSupportFragmentManager().findFragmentByTag("start2");
+            getSupportFragmentManager().beginTransaction().remove(frag).commit();
+            String[] rs = res.getContents().split("\n");
+            MainActivity.networking = new Networking(rs[0], Integer.valueOf(rs[1]), rs[2], Integer.valueOf(rs[3]));
+            MainActivity.networking.start();
+
         }
     }
 

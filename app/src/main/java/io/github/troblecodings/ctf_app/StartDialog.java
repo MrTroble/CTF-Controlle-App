@@ -12,6 +12,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import com.google.zxing.integration.android.IntentIntegrator;
+
 public class StartDialog extends DialogFragment {
 
     @NonNull
@@ -33,6 +35,13 @@ public class StartDialog extends DialogFragment {
                 StartDialog.this.dismiss();
             }
         });
+        view.findViewById(R.id.scan).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                IntentIntegrator intentIntegrator = new IntentIntegrator(MainActivity.INSTANCE);
+                intentIntegrator.initiateScan();
+            }
+        });
         builder.setView(view);
         Dialog dialog = builder.create();
         dialog.setCancelable(false);
@@ -45,9 +54,11 @@ public class StartDialog extends DialogFragment {
     public void onCancel(DialogInterface dialog) {
         MainActivity.LOGGER.info("Cancel");
         if(getFragmentManager().findFragmentByTag("start") != null){
-            new StartDialog().show(getFragmentManager(), "start2");
+            MainActivity.dialog = new StartDialog();
+            MainActivity.dialog.show(getFragmentManager(), "start2");
         } else {
-            new StartDialog().show(getFragmentManager(), "start");
+            MainActivity.dialog = new StartDialog();
+            MainActivity.dialog.show(getFragmentManager(), "start");
         }
     }
 
