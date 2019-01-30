@@ -103,7 +103,7 @@ public class Networking extends Thread {
                 @Override
                 public void run() {
                     AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.INSTANCE);
-                    builder.setMessage("No further input! \n This seams to be an error! \n Please report back to an admin!");
+                    builder.setMessage("No further input!\nThis seams to be an error!\nPlease report back to an admin!");
                     builder.setNeutralButton("Ok", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -200,6 +200,13 @@ public class Networking extends Thread {
                         for(View v : MainActivity.INSTANCE.getAll()){
                             v.setEnabled(false);
                         }
+                        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.INSTANCE);
+                        builder.setMessage("The match has been paused!\n Report to admin!");
+                        builder.setNeutralButton("Ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }});
+                        builder.show();
                     }
                 });
             } else if(command.equals("match_unpause")) {
