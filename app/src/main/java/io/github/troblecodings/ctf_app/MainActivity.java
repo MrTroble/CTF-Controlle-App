@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     public static Logger LOGGER;
-    public static MainActivity  INSTANCE;
+    public static MainActivity INSTANCE;
 
     public static StartDialog dialog;
     public static Networking networking;
@@ -64,12 +64,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         IntentResult res = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if(res != null && res.getContents() != null){
             Fragment frag = getSupportFragmentManager().findFragmentByTag("start");
-            if (frag == null) frag = getSupportFragmentManager().findFragmentByTag("start2");
-            getSupportFragmentManager().beginTransaction().remove(frag).commit();
+            if (frag == null){
+                Fragment frag2 = getSupportFragmentManager().findFragmentByTag("start2");
+                getSupportFragmentManager().beginTransaction().remove(frag2).commit();
+            } else {
+                getSupportFragmentManager().beginTransaction().remove(frag).commit();
+            }
             String[] rs = res.getContents().split("\n");
             MainActivity.networking = new Networking(rs[0], Integer.valueOf(rs[1]), rs[2], Integer.valueOf(rs[3]));
             MainActivity.networking.start();
-
         }
     }
 
@@ -125,12 +128,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             views_list.add(findViewById(R.id.pause));
         }
         return views_list;
-    }
-
-    @Override
-    protected void onDestroy() {
-        networking.close();
-        super.onDestroy();
     }
 
 }
