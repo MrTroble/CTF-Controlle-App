@@ -152,6 +152,11 @@ public class Networking extends Thread {
                 MainActivity.INSTANCE.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        int id = Integer.valueOf(args[1]);
+                        if(id > 4) {
+                            int id2 = args[0].equals("red")? 1:0;
+                            MainActivity.reserve_names[id2][id - 4] = args[2];
+                        }
                         get(args).setText(args[2]);
                     }
                 });
