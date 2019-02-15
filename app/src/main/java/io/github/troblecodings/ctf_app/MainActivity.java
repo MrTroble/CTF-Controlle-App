@@ -158,8 +158,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public TextView last_view;
     private Handler handler = new Handler();
 
+    private boolean triggered;
+    private float last_y;
     private Runnable _longPressed = new Runnable() {
         public void run() {
+            triggered = true;
             PlayerDialog dialog = new PlayerDialog();
             Bundle bndl = new Bundle();
             bndl.putString("name", last_view.getText().toString());
@@ -174,11 +177,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(v instanceof TextView) last_view = (TextView) v;
         switch (event.getAction()){
             case MotionEvent.ACTION_DOWN:
+                triggered = false;
                 handler.postDelayed(_longPressed, 1000);
                 break;
             case MotionEvent.ACTION_UP:
-            case MotionEvent.ACTION_MOVE:
-                handler.removeCallbacks(_longPressed);
+                if(triggered) return true;
                 switch (v.getId()){
                     case R.id.blue_team_player_1: networking.sendData("disable blue:1"); break;
                     case R.id.blue_team_player_2: networking.sendData("disable blue:2"); break;
@@ -189,6 +192,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     case R.id.red_team_player_3: networking.sendData("disable red:3"); break;
                     case R.id.red_team_player_4: networking.sendData("disable red:4"); break;
                 }
+            case MotionEvent.ACTION_MOVE:
+                handler.removeCallbacks(_longPressed);
                 break;
         }
         return true;

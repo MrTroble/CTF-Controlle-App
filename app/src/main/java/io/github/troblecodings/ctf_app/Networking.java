@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import java.net.Socket;
+import java.util.logging.Logger;
 
 public class Networking extends Thread {
 
@@ -155,7 +156,8 @@ public class Networking extends Thread {
                         int id = Integer.valueOf(args[1]);
                         if(id > 4) {
                             int id2 = args[0].equals("red")? 1:0;
-                            MainActivity.reserve_names[id2][id - 4] = args[2];
+                            MainActivity.reserve_names[id2][id - 5] = args[2];
+                            return;
                         }
                         get(args).setText(args[2]);
                     }

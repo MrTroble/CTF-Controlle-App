@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/gray"
-            android:text="Make Runner"
+            android:text="Runner"
             android:textSize="30sp" />
 
         <TextView
