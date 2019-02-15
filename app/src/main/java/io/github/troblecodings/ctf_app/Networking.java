@@ -1,7 +1,10 @@
 package io.github.troblecodings.ctf_app;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.view.View;
 import android.widget.TextView;
 
@@ -115,10 +118,12 @@ public class Networking extends Thread {
         }
 
         private void processData(String command, final String[] args) {
+            final Vibrator vibrator = (Vibrator) MainActivity.INSTANCE.getSystemService(Context.VIBRATOR_SERVICE);
             if(command.equals("motd")) {
                 MainActivity.INSTANCE.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        vibrator.vibrate(500);
                         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.INSTANCE);
                         builder.setMessage(args[0].replace("%n", "\n"));
                         builder.setTitle("MOTD");
@@ -166,6 +171,7 @@ public class Networking extends Thread {
                 MainActivity.INSTANCE.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        vibrator.vibrate(500);
                         for(View view : MainActivity.INSTANCE.getAll()){
                             if(view instanceof TextView && ((TextView) view).getText().equals("BANNED")) continue;
                             view.setEnabled(true);
@@ -178,6 +184,7 @@ public class Networking extends Thread {
                 MainActivity.INSTANCE.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        vibrator.vibrate(500);
                         for(View view : MainActivity.INSTANCE.getAll()){
                             view.setEnabled(false);
                         }
@@ -204,6 +211,7 @@ public class Networking extends Thread {
                 MainActivity.INSTANCE.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        vibrator.vibrate(500);
                         for(View v : MainActivity.INSTANCE.getAll()){
                             v.setEnabled(false);
                         }
@@ -220,6 +228,7 @@ public class Networking extends Thread {
                 MainActivity.INSTANCE.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        vibrator.vibrate(500);
                         for(View v : MainActivity.INSTANCE.getAll()){
                             if(v instanceof TextView && ((TextView) v).getText().equals("BANNED")) continue;
                             v.setEnabled(true);
