@@ -163,12 +163,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Runnable _longPressed = new Runnable() {
         public void run() {
             triggered = true;
-            PlayerDialog dialog = new PlayerDialog();
-            Bundle bndl = new Bundle();
-            bndl.putString("name", last_view.getText().toString());
-            bndl.putInt("team", getTeam(last_view.getId()));
-            dialog.setArguments(bndl);
-            dialog.show(getSupportFragmentManager(), "player");
+            MainActivity.LOGGER.info("TRIGGERING");
+            MainActivity.INSTANCE.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    PlayerDialog dialog = new PlayerDialog();
+                    Bundle bndl = new Bundle();
+                    bndl.putString("name", last_view.getText().toString());
+                    bndl.putInt("team", getTeam(last_view.getId()));
+                    dialog.setArguments(bndl);
+                    dialog.show(getSupportFragmentManager(), "player");
+                }
+            });
         }
     };
 
@@ -178,6 +184,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (event.getAction()){
             case MotionEvent.ACTION_DOWN:
                 triggered = false;
+                last_y = event.getY();
+                MainActivity.LOGGER.info("POST");
                 handler.postDelayed(_longPressed, 1000);
                 break;
             case MotionEvent.ACTION_UP:
@@ -192,9 +200,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     case R.id.red_team_player_3: networking.sendData("disable red:3"); break;
                     case R.id.red_team_player_4: networking.sendData("disable red:4"); break;
                 }
-            case MotionEvent.ACTION_MOVE:
+                MainActivity.LOGGER.info("REMOVE");
                 handler.removeCallbacks(_longPressed);
-                break;
+            case MotionEvent.ACTION_MOVE:
+                if(event.getY() < last_y + 2 && event.getY() > last_y - 2) {
+                    last_y = event.getY();
+                    break;
+                }
+                MainActivity.LOGGER.info("REMOVE " + last_y + " " + event.getY());
+                handler.removeCallbacks(_longPressed);
         }
         return true;
     }
